@@ -4,35 +4,31 @@ import sys, getopt
 def main():
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "h", ["help", "input=", "output=", "str1=", "str2=", "str3="])
+        opts, args = getopt.getopt(sys.argv[1:], "hi:o:s:", ["help", "input=", "output=", "str="])
 
-        search = []
         for opt, arg in opts:
+            # print "%s is %s" %(opt, arg)
             if opt in ("-h", "--help"):
                 print '''
                 This program is used for search up to 3 str to a new txt file.
                 --input=: for input file
                 --output=: for output file
-                --str1=: for the first str
-                --str2=: for the second str
-                --str3=: for the thred str
+                --str=: for the strs, sparated by ','
                 '''
                 sys.exit(1)
-            elif opt in ("--input="):
+            elif opt in ("-i", "--input"):
                 inFileName = arg
-            elif opt in ("--output="):
+            elif opt in ("-o", "--output"):
                 outFileName = arg
-            elif opt in ("--str1="):
-                search.append(arg)
-            elif opt in ("--str2="):
-                search.append(arg)
-            elif opt in ("--str3="):
-                search.append(arg)
+            elif opt in ("-s", "--str"):
+                Str = arg
 
         f = open(inFileName, 'r')
         f_b = open(outFileName, 'w+')
 
         temp = f.readlines()
+
+        search = Str.split(',')
 
         for line in temp:
             for sec in search:
