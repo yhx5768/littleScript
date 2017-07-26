@@ -10,7 +10,7 @@ def main():
             # print "%s is %s" %(opt, arg)
             if opt in ("-h", "--help"):
                 print '''
-                This program is used for search up to 3 str to a new txt file.
+                This program is used for search mulit strs to a new txt file.
                 --input=: for input file
                 --output=: for output file
                 --str=: for the strs, sparated by ','
@@ -23,25 +23,27 @@ def main():
             elif opt in ("-s", "--str"):
                 Str = arg
 
-        f = open(inFileName, 'r')
-        f_b = open(outFileName, 'w+')
+        search(inFileName=inFileName, outFileName=outFileName, Str=Str)
 
-        temp = f.readlines()
-
-        search = Str.split(',')
-
-        for line in temp:
-            for sec in search:
-                if re.match(sec, line) is not None:
-                    f_b.write(line)
-
-        f.close()
-        f_b.close()
     except getopt.GetoptError:
         print("getopt error! Please use -h to see the help.");
         sys.exit(1);
 
+def search(inFileName, outFileName, Str):
+    f = open(inFileName, 'r')
+    f_b = open(outFileName, 'w+')
 
+    temp = f.readlines()
+
+    search = Str.split(',')
+
+    for line in temp:
+        for sec in search:
+            if re.match(sec, line) is not None:
+                f_b.write(line)
+
+    f.close()
+    f_b.close()
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
